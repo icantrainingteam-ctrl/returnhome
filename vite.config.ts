@@ -88,9 +88,9 @@ export default defineConfig(({ mode }) => {
               // HolyBible URL: http://holybible.or.kr/B_GAE/cgi/bibleftxt.php?VR=GAE&VL=45&CN=1&CV=99
               const targetUrl = `http://holybible.or.kr/B_GAE/cgi/bibleftxt.php?VR=GAE&VL=${bookIndex}&CN=${chapter}&CV=99`;
 
-              const fetch = (await import('node-fetch')).default;
-              // @ts-ignore
-              const response = await fetch(targetUrl);
+              const fetchModule = await import('node-fetch');
+              const fetch = fetchModule.default;
+              const response = await (fetch as Function)(targetUrl);
               const arrayBuffer = await response.arrayBuffer();
               const buffer = Buffer.from(arrayBuffer);
 

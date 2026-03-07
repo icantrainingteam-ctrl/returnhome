@@ -32,7 +32,7 @@ export const getDiaryEntries = async (storageKey: string): Promise<SavedDiaryEnt
 
   return data.map(item => ({
     id: item.id,
-    timestamp: new Date(item.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
+    timestamp: item.created_at,
     content: item.content
   }));
 };
@@ -88,7 +88,7 @@ export const getMissionPlans = async (storageKey: string): Promise<SavedPlanEntr
 
   return data.map(item => ({
     id: item.id,
-    timestamp: new Date(item.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
+    timestamp: item.created_at,
     content: item.content
   }));
 };

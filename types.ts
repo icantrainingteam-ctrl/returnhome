@@ -16,7 +16,7 @@ export interface EvangelismPlan {
   plan: string;
 }
 
-export type ActiveTab = 'reading' | 'diary' | 'mission' | 'map';
+export type ActiveTab = 'reading' | 'diary' | 'mission' | 'map' | 'login';
 
 export interface Song {
   title: string;

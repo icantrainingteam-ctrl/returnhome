@@ -170,7 +170,7 @@ const App: React.FC = () => {
               </button>
             ) : (
               <button
-                onClick={() => setActiveTab('login' as ActiveTab)}
+                onClick={() => setActiveTab('login')}
                 className="px-2 py-1 text-[10px] md:text-xs font-bold bg-sky-600/60 hover:bg-sky-500/80 text-white border border-sky-400/30 rounded-md transition-all backdrop-blur-sm"
               >
                 로그인
@@ -218,7 +218,7 @@ const App: React.FC = () => {
         {activeTab === 'diary' && <FaithDiary storageKey={`diary-${storageKey}`} />}
         {activeTab === 'mission' && (passage ? <EvangelismMission passage={passage} storageKey={`mission-${storageKey}`} /> : <div className="text-center p-8 bg-slate-800 rounded-lg">{t('readingFirst')}</div>)}
         {activeTab === 'map' && <MissionMap />}
-        {activeTab === ('login' as ActiveTab) && <Auth />}
+        {activeTab === 'login' && <Auth />}
       </main>
 
       <footer className="text-center py-6 text-slate-400">

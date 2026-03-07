@@ -93,8 +93,7 @@ const FaithDiary: React.FC<FaithDiaryProps> = ({ storageKey }) => {
       return; // Don't save empty entries
     }
 
-    const locale = language === 'ko' ? 'ko-KR' : 'en-US';
-    const timestamp = new Date().toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: true });
+    const timestamp = new Date().toISOString();
 
     const newEntry: SavedDiaryEntry = {
       id: Date.now(), // Temporary ID for optimistic UI
@@ -229,7 +228,7 @@ const FaithDiary: React.FC<FaithDiaryProps> = ({ storageKey }) => {
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      {language === 'ko' ? entry.timestamp : new Date(entry.timestamp).toLocaleString()}
+                      {new Date(entry.timestamp).toLocaleString(language === 'ko' ? 'ko-KR' : 'en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}
                     </p>
                   </div>
                   <div className="space-y-4">
