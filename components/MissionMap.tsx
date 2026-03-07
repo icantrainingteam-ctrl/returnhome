@@ -6,8 +6,7 @@ import { useLanguage } from '../i18n';
 import MissionMapSVG from './MissionMapSVG';
 import placeInfoData from '../data/placeInfo.json';
 
-// Force Type for local JSON to avoid implicit any if strict
-const PLACE_INFO_DB: Record<string, { [key: string]: { text: string; links: { title: string; uri: string }[] } }> = placeInfoData as any;
+const PLACE_INFO_DB: Record<string, Record<string, { text: string; links: { title: string; uri: string }[] }>> = placeInfoData;
 
 const JOURNEYS = [
   {

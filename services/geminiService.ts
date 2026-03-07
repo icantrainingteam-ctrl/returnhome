@@ -256,6 +256,7 @@ export async function generateComprehensiveReadingContent(book: string, chapter1
 export async function generateEvangelismTips(passage: string, language: Language): Promise<string> {
   try {
     const p = getPrompts(language, '', 0, 0, passage);
+    if (!ai) return p.evangelismTipsError;
     const response = await ai.models.generateContent({
       model: 'gemini-1.5-flash',
       contents: p.evangelismTips,
@@ -346,6 +347,7 @@ export async function generateContextImage({ initialPrompt, fallbackContext, lan
     const fallbackPromptGenerator_ko = `다음 신학적인 글을 바탕으로, 상징적인 유화를 위한 짧고, 간단하며, 안전한 이미지 프롬프트를 만들어 주세요. 프롬프트에는 사람, 얼굴, 또는 종교적 인물이 포함되어서는 안 됩니다. 사물과 자연에 초점을 맞춰주세요. 글: "${fallbackContext}"`;
 
     try {
+      if (!ai) throw new Error("AI not initialized");
       const promptGenResponse = await ai.models.generateContent({
         // Simple Task
         model: 'gemini-1.5-flash',
@@ -472,7 +474,12 @@ export async function generateStoryKeywords(passage: string, language: Language)
     });
 
     if (response && typeof response.text === 'string' && response.text.trim()) {
-      return JSON.parse(response.text);
+      const parsed = JSON.parse(response.text);
+      if (parsed?.positive && parsed?.sin && parsed?.hope) {
+        return parsed as StoryKeywords;
+      }
+      console.warn("Story keywords response missing required fields", parsed);
+      return null;
     }
 
     let errorMessage = "Story keywords API response was empty or did not contain text content.";

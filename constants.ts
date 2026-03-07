@@ -66,11 +66,13 @@ export const getDefaultDay = (date: Date): number => {
 };
 
 export const getReadingForDay = (day: number, language: Language): DailyReading => {
-  const dayIndex = day - 1;
-  const startIndex = (dayIndex * 2) % totalChapters;
-  
+  const totalDays = Math.ceil(totalChapters / 2);
+  const dayIndex = ((day - 1) % totalDays);
+  const startIndex = dayIndex * 2;
+
   const firstChapterItem = readingPlan[startIndex];
-  const secondChapterItem = readingPlan[(startIndex + 1) % totalChapters];
+  const secondIndex = startIndex + 1 < totalChapters ? startIndex + 1 : startIndex;
+  const secondChapterItem = readingPlan[secondIndex];
 
   return [
     { book: firstChapterItem.book[language], chapter: firstChapterItem.chapter },
@@ -90,7 +92,7 @@ export const getFullSchedule = (language: Language): ScheduleItem[] => {
     for (let dayIndex = 0; dayIndex < totalDays; dayIndex++) {
         const startIndex = dayIndex * 2;
         const firstChapter = readingPlan[startIndex];
-        const secondChapter = readingPlan[startIndex + 1];
+        const secondChapter = startIndex + 1 < readingPlan.length ? readingPlan[startIndex + 1] : undefined;
 
         let readingText: string;
 
