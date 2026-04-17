@@ -224,7 +224,7 @@ export async function generateComprehensiveReadingContent(book: string, chapter1
 
     const response = await ai.models.generateContent({
       // Optimized for cost and speed
-      model: 'gemini-1.5-flash',
+      model: 'gemini-flash-latest',
       contents: p.comprehensiveReading,
       config: {
         responseMimeType: "application/json",
@@ -258,7 +258,7 @@ export async function generateEvangelismTips(passage: string, language: Language
     const p = getPrompts(language, '', 0, 0, passage);
     if (!ai) return p.evangelismTipsError;
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-flash-latest',
       contents: p.evangelismTips,
     });
 
@@ -284,7 +284,7 @@ export async function generateContextImage({ initialPrompt, fallbackContext, lan
       try {
         if (!ai) throw new Error("AI not initialized");
         const response = await ai.models.generateContent({
-          model: 'gemini-1.5-flash-image',
+          model: 'gemini-2.5-flash-image',
           contents: {
             parts: [{ text: p }],
           },
@@ -350,7 +350,7 @@ export async function generateContextImage({ initialPrompt, fallbackContext, lan
       if (!ai) throw new Error("AI not initialized");
       const promptGenResponse = await ai.models.generateContent({
         // Simple Task
-        model: 'gemini-1.5-flash',
+        model: 'gemini-flash-latest',
         contents: language === 'en' ? fallbackPromptGenerator_en : fallbackPromptGenerator_ko,
       });
 
@@ -389,7 +389,7 @@ export async function recommendMusic(context: string, language: Language): Promi
     if (!ai) return [];
 
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-flash-latest',
       contents: {
         parts: [{ text: p.recommendMusic }, { text: p.recommendMusicContextPrefix }]
       },
@@ -427,7 +427,7 @@ export async function generatePrayerGuide(passage: string, language: Language): 
     if (!ai) return getPrompts(language, '', 0, 0).prayerGuideError;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-flash-latest',
       contents: p.prayerGuide,
     });
 
@@ -444,7 +444,7 @@ export async function generateSermonOutline(passage: string, language: Language)
     if (!ai) return getPrompts(language, '', 0, 0).sermonOutlineError;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-flash-latest',
       contents: p.sermonOutline,
     });
 
@@ -461,7 +461,7 @@ export async function generateStoryKeywords(passage: string, language: Language)
     if (!ai) return null;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-flash-latest',
       contents: p.storyKeywords,
       config: {
         responseMimeType: "application/json",
@@ -501,7 +501,7 @@ export async function explainPassageSelection(selectedText: string, passageConte
     if (!ai) return getPrompts(language, '', 0, 0, '', '').explainSelectionError;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-flash-latest',
       contents: p.explainSelection,
     });
 
@@ -531,7 +531,7 @@ export async function fetchPlaceInfo(city: string, journeyTitle: string, languag
 
     const response = await ai.models.generateContent({
       // Maps grounding support varies; using current stable flash for best coverage.
-      model: 'gemini-1.5-flash',
+      model: 'gemini-flash-latest',
       contents: prompt,
       config: {
         tools: [{ googleMaps: {} }],
@@ -567,7 +567,7 @@ export async function generateJourneyMap(title: string, cities: string[], langua
     if (!ai) return null;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash-image',
+      model: 'gemini-2.5-flash-image',
       contents: {
         parts: [{ text: p }]
       },
